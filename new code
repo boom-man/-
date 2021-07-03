@@ -1,0 +1,57 @@
+import random
+B = int(input ("초기 자금")) #변하는 초기 자금
+BB = B #고정된 초기 자금
+C = int(input ("건당 배팅금")) #변하는 건당 배팅
+K = C #고정된 초기 배팅금
+
+A = 0 #시행 횟수
+E = 0 #가장 많이 배팅한 시행
+W = 0 #이긴 횟수
+L = 0 #진 횟수
+CW = 0 #현재 연승
+CL = 0 #현재 연패
+CCW = 0 #가장 많은 연승
+CCL = 0 #가장 많은 연패
+MMM = 0
+
+while B > 0: #자금이 없어질 때까지 시행
+    if E < C: 
+        E = C
+    A = 1 + A
+    print (A,"번째 시행")
+    Q = int(random.randrange(10)) # 0부터 9까지 숫자 무작위로 선택
+    if 0 == Q or 1 == Q or 2 == Q or 3 == Q : #4/10 확률로 승리
+        B = B - C
+        print ("현재 배팅:",C)
+        B = B + 2 * C
+        C = K
+        W = W + 1
+        CL = 0 #이길 경우 연패 끊김
+        CW = CW + 1
+        if CW>CCW:
+            CCW=CW
+    elif 4 == Q or 5 == Q or 6 == Q or 7 == Q or 8 == Q or 9 == Q: #6/10 확률로 패배
+        B = B - C
+        print ("현재 배팅:",C)
+        C = 3 * C
+        L = L + 1
+        CW = 0 #질 경우 연승 끊김
+        CL = CL + 1
+        if CL>CCL:
+            CCL =CL
+    if MMM< B:
+        MMM = B
+    print ("결과",Q)
+        
+    print ("내 자산",B)
+    print(" ")
+V = round (W/A*100,2)
+print (" ")
+print ("시행 횟수:", A)
+print ("이긴 횟수:", W)
+print ("진 횟수:", L)
+print("최대 연승", CCW," ", "최대 연패", CCL )
+print ("승률:", V, "%")
+print ("최대 배팅:",E,"원")
+print ("초기 자금:", BB,"원")
+print ("최대 금액:", MMM,"원")
